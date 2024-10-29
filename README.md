@@ -66,3 +66,33 @@ Projekt je razdeljen na dva glavna direktorija:
     - Framework: React (različica 17 ali novejša)
     - Package manager: npm
 
+## Vizija projekta
+
+TODO aplikacija je zasnovana za uporabnike, ki želijo enostavno in učinkovito upravljati svoje naloge in opravila. Namen aplikacije je izboljšati produktivnost uporabnikov, saj jim omogoča pregled nad nalogami, lažjo organizacijo in sledenje napredku. Cilj je ponuditi uporabniku prijazno rešitev za organizacijo vsakodnevnih opravil, ki je dostopna kjerkoli in kadarkoli. Aplikacija je primerna za posameznike, ekipe ali podjetja, ki potrebujejo boljšo organizacijo delovnih procesov in želijo optimizirati svojo učinkovitost.
+
+## Besednjak
+
+- **Naloga**: Posamezno opravilo ali aktivnost, ki jo je potrebno izvesti.
+- **Projekt**: Skupina nalog, ki spadajo pod določeno temo ali cilj.
+- **Uporabniški račun**: Profil uporabnika, ki mu omogoča dostop do aplikacije in varno shranjevanje njegovih podatkov.
+- **Seznam opravil**: Struktura, ki združuje naloge po določenih kriterijih, na primer "Opraviti danes" ali "Opravila za naslednji teden".
+- **Status naloge**: Stanje naloge, ki označuje, ali je ta odprta, v teku ali zaključena.
+
+## Diagram primerov uporabe
+
+Spodaj je prikazan diagram primerov uporabe za TODO aplikacijo, ki ponazarja glavne interakcije med uporabnikom in aplikacijo. Diagram vključuje naslednje funkcionalnosti:
+- Ustvarjanje, urejanje in brisanje nalog.
+- Organizacija nalog v projekte.
+- Spreminjanje statusa naloge.
+- Prijava in odjava iz uporabniškega računa.
+
+![Diagram primerov uporabe](./images/use-case-diagram.png)
+
+**Opis primerov uporabe**:
+1. **Ustvarjanje nalog**: Uporabnik lahko dodaja nove naloge in jim dodeljuje projekte, roke in prioritete.
+2. **Urejanje nalog**: Omogoča uporabniku spreminjanje že obstoječih nalog, na primer spreminjanje roka ali statusa.
+3. **Brisanje nalog**: Uporabnik lahko odstrani naloge, ki niso več potrebne.
+4. **Prijava in odjava**: Omogoča uporabnikom prijavo v sistem za dostop do lastnih nalog in podatkov.
+
+> **Opomba**: Diagram naj bo dodan v podmapo `images` in ustrezno poimenovan (npr. `use-case-diagram.png`). Če želite naložiti diagram, ga dodajte v mapo projekta in uporabite ustrezno povezavo v README datoteki.
+
