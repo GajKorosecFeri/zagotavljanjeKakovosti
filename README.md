@@ -91,7 +91,7 @@ Spodaj je prikazan diagram primerov uporabe za TODO aplikacijo, ki ponazarja gla
 - Spreminjanje statusa naloge.
 - Prijava in odjava iz uporabniškega računa.
 
-![Diagram primerov uporabe](./images/use-case-diagram.png)
+![Diagram primerov uporabe](/Screenshot 2024-11-04 171104.png)
 
 **Opis primerov uporabe**:
 1. **Ustvarjanje nalog**: Uporabnik lahko dodaja nove naloge in jim dodeljuje projekte, roke in prioritete.
