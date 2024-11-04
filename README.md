@@ -4,6 +4,11 @@ Dobrodošli v projektu TODO aplikacije! Ta aplikacija omogoča uporabnikom uprav
 - **Backend** (Spring Boot): zagotavlja REST API za upravljanje nalog
 - **Frontend** (React): uporabniški vmesnik za interakcijo z aplikacijo
 
+## Skupina
+- **Filip Knez**
+- **Gal Kovše**
+- **Gaj Korosec**
+
 ## Dokumentacija za razvijalce
 
 ### Struktura projekta
