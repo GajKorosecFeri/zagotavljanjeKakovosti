@@ -99,4 +99,8 @@ Spodaj je prikazan diagram primerov uporabe za TODO aplikacijo, ki ponazarja gla
 3. **Brisanje nalog**: Uporabnik lahko odstrani naloge, ki niso več potrebne.
 4. **Prijava in odjava**: Omogoča uporabnikom prijavo v sistem za dostop do lastnih nalog in podatkov.
 
+**Podrobni opisi primerov uporabe po podanem obrazcu se nahajajo v :**:
+
+[Podobni opisi primerov uporabe ](PodrobenOpisPrimerovUporabe.docx)
+
 
