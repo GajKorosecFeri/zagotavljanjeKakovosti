@@ -98,6 +98,15 @@ Spodaj je prikazan diagram primerov uporabe za TODO aplikacijo, ki ponazarja gla
 2. **Urejanje nalog**: Omogoča uporabniku spreminjanje že obstoječih nalog, na primer spreminjanje roka ali statusa.
 3. **Brisanje nalog**: Uporabnik lahko odstrani naloge, ki niso več potrebne.
 4. **Prijava in odjava**: Omogoča uporabnikom prijavo v sistem za dostop do lastnih nalog in podatkov.
+5. **Nastavljanje opomnika za nalogo**: Registrirani uporabniki lahko nastavijo opomnike za posamezne naloge, da jih aplikacija obvesti pred datumom roka ali ob drugih pomembnih trenutkih:
+     - Povezave:
+         - Razširi **Urejanje naloge**: Omogoča uporabnikom, da dodajo ali spremenijo opomnik med urejanjem naloge.
+         - Vključuje **Izbira načina obvestila**: Uporabnik lahko izbere način obvestila (npr. e-mail, potisno obvestilo, SMS).
+         - Vključuje **Pošiljanje obvestila**: Aplikacija pošlje obvestilo uporabniku glede na nastavljeni opomnik ali ob specifičnih dogodkih (npr. sprememba statusa naloge ali bližanje roka).
+6. **Upravljanje obvestil**: Uporabnik lahko upravlja vsa svoja obvestila, jih pogleda, odstrani ali začasno onemogoči:
+    - Povezave: 
+        - Vključuje **Pregled aktivnih opomnikov**: Prikazuje seznam vseh aktivnih opomnikov za naloge.
+        - Razširi **Onemogočanje obvestil**: Omogoča uporabniku, da začasno ustavi vsa obvestila za naloge ali za določene naloge.
 
 **Podrobni opisi primerov uporabe po podanem obrazcu se nahajajo v :**:
 
