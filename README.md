@@ -110,6 +110,6 @@ Spodaj je prikazan diagram primerov uporabe za TODO aplikacijo, ki ponazarja gla
 
 **Podrobni opisi primerov uporabe po podanem obrazcu se nahajajo v :**:
 
-[Podobni opisi primerov uporabe ](PodrobenOpisPrimerovUporabe.docx)
+[Podrobni opisi primerov uporabe ](PodrobenOpisPrimerovUporabe.docx)
 
 

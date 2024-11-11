@@ -5,7 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="75d7928b-2576-40e0-bea7-d4ff98b6b7c0" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -60,6 +59,11 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Filip\OneDrive\Namizje\RIS\RISProjekt" />
+    </key>
+  </component>
   <component name="RunManager">
     <configuration default="true" type="JetRunConfigurationType">
       <module name="RIS" />
@@ -91,7 +95,7 @@
       <workItem from="1728923012798" duration="24000" />
       <workItem from="1728923242907" duration="303000" />
       <workItem from="1730144369075" duration="26000" />
-      <workItem from="1730147764764" duration="10297000" />
+      <workItem from="1730147764764" duration="10534000" />
     </task>
     <servers />
   </component>
