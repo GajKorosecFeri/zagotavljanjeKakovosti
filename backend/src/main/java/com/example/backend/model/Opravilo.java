@@ -3,6 +3,8 @@ package com.example.backend.model;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Table(name="opravilo")
 @Data // Lombok za getterje, setterje, toString itd.
@@ -17,4 +19,7 @@ public class Opravilo {
     private String aktivnost;
     private String opis;
     private boolean opravljeno;
+
+    private LocalDateTime datumCas;
+    private String reminderMethod;
 }

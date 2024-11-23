@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { pridobiVsaOpravila, ustvariOpravilo, izbrisiOpravilo, posodobiOpravilo, oznaciKotOpravljeno, isciOpravila } from "../services/OpravilaService";
 import '../Opravila.css';
-
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 const SeznamOpravil = () => {
     const [opravila, nastaviOpravila] = useState([]); // Shranjuje vsa opravila
-    const [novoOpravilo, nastaviNovoOpravilo] = useState({ aktivnost: '', opis: '', opravljeno: '' }); // Stanje za novo opravilo
+    const [novoOpravilo, nastaviNovoOpravilo] = useState({ aktivnost: '', opis: '', opravljeno: '',datumCas: null, reminderMethod: 'none' }); // Stanje za novo opravilo
     const [urediOpravilo, nastaviUrediOpravilo] = useState(null); // Stanje za urejanje obstoječih opravil
     const [iskalniNiz, nastaviIskalniNiz] = useState('');// za iskanje
+
 
     useEffect(() => {
         naloziOpravila();
@@ -35,7 +37,7 @@ const SeznamOpravil = () => {
     const rocnUstvari = () => {
         ustvariOpravilo(novoOpravilo).then(() => {
             naloziOpravila(); // Ponovno naloži opravila po ustvarjanju
-            nastaviNovoOpravilo({ aktivnost: '', opis: '', opravljeno: '' }); // Ponastavi obrazec
+            nastaviNovoOpravilo({ aktivnost: '', opis: '', opravljeno: '',datumCas: null, reminderMethod: 'none' }); // Ponastavi obrazec
         }).catch((napaka) => {
             console.error("Napaka pri ustvarjanju opravila", napaka);
         });
@@ -43,13 +45,19 @@ const SeznamOpravil = () => {
 
     const rocnUredi = (opravilo) => {
         nastaviUrediOpravilo(opravilo);
-        nastaviNovoOpravilo({ aktivnost: opravilo.aktivnost, opis: opravilo.opis, opravljeno: opravilo.opravljeno }); // Predizpolni obrazec
+        nastaviNovoOpravilo({
+            aktivnost: opravilo.aktivnost,
+            opis: opravilo.opis,
+            opravljeno: opravilo.opravljeno,
+            datumCas: new Date(opravilo.datumCas),
+            reminderMethod: opravilo.reminderMethod || 'none'
+        }); // Predizpolni obrazec
     };
 
     const rocnPosodobi = () => {
         posodobiOpravilo(urediOpravilo.id, novoOpravilo).then(() => {
             naloziOpravila(); // Ponovno naloži opravila po posodobitvi
-            nastaviNovoOpravilo({ aktivnost: '', opis: '', opravljeno: '' }); // Ponastavi obrazec
+            nastaviNovoOpravilo({ aktivnost: '', opis: '', opravljeno: '', datumCas: null, reminderMethod: 'none'  }); // Ponastavi obrazec
             nastaviUrediOpravilo(null); // Počisti stanje urejanja
         }).catch((napaka) => {
             console.error("Napaka pri posodabljanju opravila", napaka);
@@ -102,6 +110,47 @@ const SeznamOpravil = () => {
                     onChange={obravnavaSpremembeVnosa}
                     className="vnosno-polje"
                 />
+                <DatePicker
+                    selected={novoOpravilo.datumCas}
+                    onChange={(date) => nastaviNovoOpravilo({ ...novoOpravilo, datumCas: date })}
+                    showTimeSelect
+                    dateFormat="Pp"
+                    placeholderText="Izberite datum in čas"
+                    className="vnosno-polje"
+                />
+                <div>
+                    <p>Izberite način opomnika:</p>
+                    <label>
+                        <input
+                            type="radio"
+                            name="reminderMethod"
+                            value="email"
+                            checked={novoOpravilo.reminderMethod === 'email'}
+                            onChange={(e) => nastaviNovoOpravilo({ ...novoOpravilo, reminderMethod: e.target.value })}
+                        />
+                        E-pošta
+                    </label>
+                    <label>
+                        <input
+                            type="radio"
+                            name="reminderMethod"
+                            value="sms"
+                            checked={novoOpravilo.reminderMethod === 'sms'}
+                            onChange={(e) => nastaviNovoOpravilo({ ...novoOpravilo, reminderMethod: e.target.value })}
+                        />
+                        SMS
+                    </label>
+                    <label>
+                        <input
+                            type="radio"
+                            name="reminderMethod"
+                            value="none"
+                            checked={novoOpravilo.reminderMethod === 'none'}
+                            onChange={(e) => nastaviNovoOpravilo({ ...novoOpravilo, reminderMethod: e.target.value })}
+                        />
+                        Brez opomnika
+                    </label>
+                </div>
                 {urediOpravilo ? (
                     <button onClick={rocnPosodobi} className="gumb">Posodobi opravilo</button>
                 ) : (
@@ -125,6 +174,14 @@ const SeznamOpravil = () => {
                     opravila.map((opravilo) => (
                         <li key={opravilo.id} className="opravilo">
                             <span>{opravilo.aktivnost} - {opravilo.opis}</span>
+                            {opravilo.datumCas && (
+                                <span className="datum-cas">
+                                    Datum in čas: {new Date(opravilo.datumCas).toLocaleString()}
+                                </span>
+                            )}
+                            <span className="reminder-method">
+                                Način opomnika: {opravilo.reminderMethod === 'email' ? 'E-pošta' : opravilo.reminderMethod === 'sms' ? 'SMS' : 'Brez opomnika'}
+                            </span>
                             <div className="opravilo-gumbi">
                                 {!opravilo.opravljeno ? (
                                     <button onClick={() => rocnoOznaciKotOpravljenoo(opravilo.id)} className={"gumb-opravljeno"}>

@@ -46,6 +46,8 @@ public class OpraviloController {
         opravilo.setAktivnost(opraviloPodatki.getAktivnost());
         opravilo.setOpis(opraviloPodatki.getOpis());
         opravilo.setOpravljeno(opraviloPodatki.isOpravljeno());
+        opravilo.setDatumCas(opraviloPodatki.getDatumCas());
+        opravilo.setReminderMethod(opraviloPodatki.getReminderMethod());
 
         Opravilo posodobljen = opraviloRepo.save(opravilo);
         return ResponseEntity.ok(posodobljen);
