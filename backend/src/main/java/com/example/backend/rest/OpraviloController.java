@@ -5,6 +5,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.example.backend.model.Opravilo;
+import com.twilio.Twilio;
+import com.twilio.rest.api.v2010.account.Message;
+
 
 import java.util.List;
 
@@ -79,5 +82,23 @@ public class OpraviloController {
     @GetMapping("/search")
     public List<Opravilo> iskanjeOpravila(@RequestParam("aktivnost") String aktivnost) {
         return opraviloRepo.findByAktivnostContainingIgnoreCase(aktivnost);
+    }
+
+    @GetMapping("/test-sms")
+    public String testSms() {
+        // Nastavi SID, Auth Token, in Twilio številko (lahko prebereš iz properties ali ročno vnesi za testiranje)
+        Twilio.init("#", "#");
+
+        try {
+            Message message = Message.creator(
+                    new com.twilio.type.PhoneNumber("#"), // Tvoja telefonska številka
+                    new com.twilio.type.PhoneNumber("#"), // Twilio številka
+                    "To je testno SMS sporočilo iz aplikacije!" // Vsebina sporočila
+            ).create();
+
+            return "SMS uspešno poslan. SID: " + message.getSid();
+        } catch (Exception e) {
+            return "Napaka pri pošiljanju SMS: " + e.getMessage();
+        }
     }
 }

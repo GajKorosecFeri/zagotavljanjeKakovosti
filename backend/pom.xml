@@ -83,8 +83,16 @@
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-core-jakarta</artifactId>
-            <version>6.5.3.Final</version>
+            <version>6.5.3.Final</version>w
         </dependency>
+        <dependency>
+            <groupId>com.twilio.sdk</groupId>
+            <artifactId>twilio</artifactId>
+            <version>10.6.3</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/src/main/resources/libs/twilio-10.6.3-jar-with-dependencies.jar</systemPath>
+        </dependency>
+
 
 
     </dependencies>
