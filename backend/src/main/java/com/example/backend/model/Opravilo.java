@@ -22,4 +22,8 @@ public class Opravilo {
 
     private LocalDateTime datumCas;
     private String reminderMethod;
+
+    @ManyToOne
+    @JoinColumn(name = "uporabnik_id", nullable = false)
+    private Uporabnik uporabnik; // Povezava do entitete Uporabnik
 }

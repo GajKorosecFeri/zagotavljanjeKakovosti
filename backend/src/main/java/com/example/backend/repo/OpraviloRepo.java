@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface OpraviloRepo extends JpaRepository<Opravilo, Long> {
         List<Opravilo> findByAktivnostContainingIgnoreCase(String aktivnost);
+        // Poišče opravila za določenega uporabnika
+        List<Opravilo> findByUporabnikId(Long uporabnikId);
 }
