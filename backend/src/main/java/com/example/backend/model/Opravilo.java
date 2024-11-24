@@ -22,4 +22,17 @@ public class Opravilo {
 
     private LocalDateTime datumCas;
     private String reminderMethod;
+
+
+    public LocalDateTime getDatumCas() {
+        return datumCas;
+    }
+
+    public String getDescription() {
+        return opis;
+    }
+
+    public String getTitle() {
+        return aktivnost;
+    }
 }
