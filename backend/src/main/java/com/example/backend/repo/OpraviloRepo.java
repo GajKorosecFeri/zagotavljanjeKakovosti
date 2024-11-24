@@ -10,4 +10,8 @@ public interface OpraviloRepo extends JpaRepository<Opravilo, Long> {
         List<Opravilo> findByAktivnostContainingIgnoreCase(String aktivnost);
 
         List<Opravilo> findBydatumCas(LocalDateTime cas);
+        
+        // Poišče opravila za določenega uporabnika
+        List<Opravilo> findByUporabnikId(Long uporabnikId);
+
 }

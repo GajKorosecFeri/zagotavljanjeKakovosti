@@ -24,6 +24,7 @@ public class Opravilo {
     private String reminderMethod;
 
 
+
     public LocalDateTime getDatumCas() {
         return datumCas;
     }
@@ -35,4 +36,9 @@ public class Opravilo {
     public String getTitle() {
         return aktivnost;
     }
+
+    @ManyToOne
+    @JoinColumn(name = "uporabnik_id", nullable = false)
+    private Uporabnik uporabnik; // Povezava do entitete Uporabnik
+
 }
