@@ -13,5 +13,9 @@ public interface OpraviloRepo extends JpaRepository<Opravilo, Long> {
         
         // Poišče opravila za določenega uporabnika
         List<Opravilo> findByUporabnikId(Long uporabnikId);
+        List<Opravilo> findByReminderMethodAndDatumCasBetween(
+                String reminderMethod, LocalDateTime start, LocalDateTime end
+        );
+
 
 }
