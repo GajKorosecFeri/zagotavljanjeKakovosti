@@ -28,7 +28,7 @@ public class SmsNotificationScheduler {
     private String twilioPhoneNumber;
 
     // Vsakih 5 minut preverjamo, ali je treba poslati SMS
-    @Scheduled(fixedRate = 300000)
+    @Scheduled(fixedRate = 300000)//5min
     public void sendSmsNotifications() {
         Twilio.init(twilioAccountSid, twilioAuthToken);
 
@@ -37,7 +37,7 @@ public class SmsNotificationScheduler {
         LocalDateTime oneHourFromNow = now.plusHours(1);
 
         List<Opravilo> opravila = opraviloRepo.findByReminderMethodAndDatumCasBetween(
-                "SMS", now, oneHourFromNow
+                "SMS", now, oneHourFromNow //poišče opravila z metodo opomnika SMS in časovnim oknom med zdaj in naslednjo uro.
         );
 
         for (Opravilo opravilo : opravila) {
