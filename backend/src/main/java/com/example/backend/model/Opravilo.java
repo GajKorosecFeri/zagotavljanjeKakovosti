@@ -1,5 +1,6 @@
 package com.example.backend.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -39,6 +40,7 @@ public class Opravilo {
 
     @ManyToOne
     @JoinColumn(name = "uporabnik_id", nullable = false)
+    @JsonBackReference
     private Uporabnik uporabnik; // Povezava do entitete Uporabnik
 
 }

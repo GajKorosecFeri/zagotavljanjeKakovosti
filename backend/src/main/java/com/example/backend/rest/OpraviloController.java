@@ -12,12 +12,13 @@ import java.util.List;
 @RequestMapping("/opravila")
 public class OpraviloController {
 
+    @Autowired
+    private OpraviloRepo opraviloRepo;
+
     @GetMapping("/test")
     public String testEndpoint() {
         return "Controller is working!";
     }
-    @Autowired
-    private OpraviloRepo opraviloRepo;
 
     //Create - dodajanje novega uporabnika
     @PostMapping
@@ -27,7 +28,10 @@ public class OpraviloController {
 
     //Read - pridobitev vseh uporabnikov
     @GetMapping
-    public List<Opravilo> pridobiVsaOpravila(){
+    public List<Opravilo> pridobiVsaOpravila(@RequestParam(required = false) Long uporabnikId){
+        if (uporabnikId != null) {
+            return opraviloRepo.findByUporabnikId(uporabnikId);
+        }
         return opraviloRepo.findAll();
     }
 

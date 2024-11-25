@@ -8,14 +8,18 @@ const SeznamOpravil = () => {
     const [novoOpravilo, nastaviNovoOpravilo] = useState({ aktivnost: '', opis: '', opravljeno: '',datumCas: null, reminderMethod: 'none' }); // Stanje za novo opravilo
     const [urediOpravilo, nastaviUrediOpravilo] = useState(null); // Stanje za urejanje obstoječih opravil
     const [iskalniNiz, nastaviIskalniNiz] = useState('');// za iskanje
-
+    const [uporabnikId, nastaviUporabnikId] = useState(null); // Default user's ID
 
     useEffect(() => {
-        naloziOpravila();
+        // Automatically set defaultUser
+        const defaultUserId = 1; // Assuming the `defaultUser` has ID 1
+        nastaviUporabnikId(defaultUserId);
+        naloziOpravila(defaultUserId);
     }, []);
 
-    const naloziOpravila = () => {
-        pridobiVsaOpravila().then((odziv) => {
+    const naloziOpravila = (uporabnikId) => {
+        console.log("Fetching tasks for user:", uporabnikId);
+        pridobiVsaOpravila(uporabnikId).then((odziv) => {
             if (Array.isArray(odziv)) {
                 nastaviOpravila(odziv);
             } else {
@@ -28,15 +32,15 @@ const SeznamOpravil = () => {
 
     const rocnObrisi = (id) => {
         izbrisiOpravilo(id).then(() => {
-            naloziOpravila(); // Ponovno naloži opravila po brisanju
+            naloziOpravila(uporabnikId); // Ponovno naloži opravila po brisanju
         }).catch((napaka) => {
             console.error("Napaka pri brisanju opravila", napaka);
         });
     };
 
     const rocnUstvari = () => {
-        ustvariOpravilo(novoOpravilo).then(() => {
-            naloziOpravila(); // Ponovno naloži opravila po ustvarjanju
+        ustvariOpravilo({ ...novoOpravilo, uporabnik: { id: uporabnikId } }).then(() => {
+            naloziOpravila(uporabnikId); // Ponovno naloži opravila po ustvarjanju
             nastaviNovoOpravilo({ aktivnost: '', opis: '', opravljeno: '',datumCas: null, reminderMethod: 'none' }); // Ponastavi obrazec
         }).catch((napaka) => {
             console.error("Napaka pri ustvarjanju opravila", napaka);
@@ -55,8 +59,8 @@ const SeznamOpravil = () => {
     };
 
     const rocnPosodobi = () => {
-        posodobiOpravilo(urediOpravilo.id, novoOpravilo).then(() => {
-            naloziOpravila(); // Ponovno naloži opravila po posodobitvi
+        posodobiOpravilo(urediOpravilo.id, { ...novoOpravilo, uporabnik: { id: uporabnikId } }).then(() => {
+            naloziOpravila(uporabnikId); // Ponovno naloži opravila po posodobitvi
             nastaviNovoOpravilo({ aktivnost: '', opis: '', opravljeno: '', datumCas: null, reminderMethod: 'none'  }); // Ponastavi obrazec
             nastaviUrediOpravilo(null); // Počisti stanje urejanja
         }).catch((napaka) => {
@@ -67,14 +71,14 @@ const SeznamOpravil = () => {
     //Oznaci kot opravljeno
     const rocnoOznaciKotOpravljenoo = (id)=>{
         oznaciKotOpravljeno(id).then(()=>{
-            naloziOpravila();
+            naloziOpravila(uporabnikId);
         }).catch((napaka)=>{
             console.error("Napaka pri oznacevanju opravila na opravljeno",  napaka);
         })
     }
 
     const rocnoIskanje = () => {
-        isciOpravila(iskalniNiz).then((odziv) => {
+        isciOpravila(iskalniNiz, uporabnikId).then((odziv) => {
             nastaviOpravila(odziv); // Nastavi iskalne rezultate
         }).catch((napaka) => {
             console.error("Napaka pri iskanju opravil", napaka);

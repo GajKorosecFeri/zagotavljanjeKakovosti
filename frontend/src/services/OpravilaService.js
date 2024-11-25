@@ -9,11 +9,18 @@ const apiOdjemalec = axios.create({
 });
 
 // Pridobi vsa opravila
-export const pridobiVsaOpravila = async () => {
+export const pridobiVsaOpravila = async (uporabnikId) => {
     try {
-        const odziv = await apiOdjemalec.get("");
+        const queryParam = uporabnikId ? `?uporabnikId=${uporabnikId}` : '';
+        const fullUrl = `${apiOdjemalec.defaults.baseURL}${queryParam}`;
+        const odziv = await apiOdjemalec.get(fullUrl);
+       // const odziv = await axios.get(`http://localhost:8080/opravila?uporabnikId=${uporabnikId}`);
         return odziv.data; // Neposredno vrni podatke
     } catch (napaka) {
+        if (napaka.response && napaka.response.status === 404) {
+            console.error("No tasks found for this user.");
+            return []; // Return an empty array
+        }
         console.error("Napaka pri pridobivanju opravil:", napaka);
         throw napaka; // Znova sproži napako za obravnavo v komponenti
     }
