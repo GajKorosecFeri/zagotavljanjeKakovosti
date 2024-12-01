@@ -7,6 +7,8 @@ Preverjanje pravilnega delovanja API-jev.
 Testiranje napak, kot so neveljavne zahteve ali manjkajoči podatki.
 #### Člani skupine
 - Filip Knez: Testiranje OpraviloController.
+- Gaj Korosec:
+- Gal Kovše:
 
 #### Analiza uspešnosti
 Vsi testi so bili uspešno izvedeni.
