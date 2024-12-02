@@ -25,7 +25,7 @@ public class EmailService {
         try {
             log.debug("Preparing to send email to: {}", emailDetails.getRecipient());
             SimpleMailMessage mailMsg = new SimpleMailMessage();
-            mailMsg.setFrom(emailSender);
+            mailMsg.setFrom("gajkorosec58@gmail.com");
             mailMsg.setTo(emailDetails.getRecipient());
             mailMsg.setText(emailDetails.getMessageBody());
             mailMsg.setSubject(emailDetails.getSubject());

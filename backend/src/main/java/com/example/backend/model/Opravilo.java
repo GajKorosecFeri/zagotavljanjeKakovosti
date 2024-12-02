@@ -26,18 +26,6 @@ public class Opravilo {
 
 
 
-    public LocalDateTime getDatumCas() {
-        return datumCas;
-    }
-
-    public String getDescription() {
-        return opis;
-    }
-
-    public String getTitle() {
-        return aktivnost;
-    }
-
     @ManyToOne
     @JoinColumn(name = "uporabnik_id", nullable = false)
     @JsonBackReference

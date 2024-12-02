@@ -19,7 +19,7 @@ public class EmailTestController {
             emailService.sendEmail(emailDetails);
             return "Email sent successfully!";
         } catch (RuntimeException e) {
-            return "Failed to send email: " + e.getMessage();
+            return "Failed to send email Controller response : " + e.getMessage();
         }
     }
 }
