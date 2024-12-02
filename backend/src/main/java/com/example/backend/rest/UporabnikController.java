@@ -15,6 +15,10 @@ public class UporabnikController {
     @Autowired
     private UporabnikRepo uporabnikRepo;
 
+    public UporabnikController(UporabnikRepo uporabnikRepo) {
+        this.uporabnikRepo = uporabnikRepo;
+    }
+
     // Pridobi vse uporabnike
     @GetMapping
     public ResponseEntity<List<Uporabnik>> getAllUporabniki() {
