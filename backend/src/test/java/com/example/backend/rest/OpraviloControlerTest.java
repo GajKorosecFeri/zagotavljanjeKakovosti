@@ -32,6 +32,7 @@ public class OpraviloControlerTest {
         MockitoAnnotations.openMocks(this);
     }
 
+    // Preveri, ali metoda pridobiVsaOpravila vrne pravilen seznam opravil.
     @Test
     void testPridobiVsaOpravila() {
         // Arrange
@@ -49,6 +50,7 @@ public class OpraviloControlerTest {
         verify(opraviloRepo, times(1)).findAll();
     }
 
+    //Preveri, ali metoda pridobiOpraviloPoId vrne opravilo, če obstaja.
     @Test
     void testPridobiOpraviloPoId_Success() {
         // Arrange
@@ -64,6 +66,7 @@ public class OpraviloControlerTest {
         verify(opraviloRepo, times(1)).findById(1L);
     }
 
+    // Preveri, ali metoda pridobiOpraviloPoId vrže izjemo, če opravilo ne obstaja.
     @Test
     void testPridobiOpraviloPoId_NotFound() {
         // Arrange
@@ -75,6 +78,7 @@ public class OpraviloControlerTest {
         verify(opraviloRepo, times(1)).findById(1L);
     }
 
+    //Preveri, ali metoda ustvariOpravilo pravilno shrani novo opravilo.
     @Test
     void testUstvariOpravilo() {
         // Arrange
@@ -90,6 +94,7 @@ public class OpraviloControlerTest {
         verify(opraviloRepo, times(1)).save(opravilo);
     }
 
+    //Preveri, ali metoda izbrisiOpravilo pravilno izbriše obstoječe opravilo.
     @Test
     void testIzbrisiOpravilo_Success() {
         // Arrange
@@ -105,6 +110,7 @@ public class OpraviloControlerTest {
         verify(opraviloRepo, times(1)).delete(opravilo);
     }
 
+    //Preveri, ali metoda izbrisiOpravilo vrže izjemo, če opravilo ne obstaja.
     @Test
     void testIzbrisiOpravilo_NotFound() {
         // Arrange
@@ -114,5 +120,79 @@ public class OpraviloControlerTest {
         RuntimeException exception = assertThrows(RuntimeException.class, () -> opraviloController.izbrisiOpravilo(1L));
         assertEquals("Opravilo ni bilo najdeno", exception.getMessage());
         verify(opraviloRepo, times(0)).delete(any(Opravilo.class));
+    }
+
+    //Preveri ali se opravilo posodobi pravilno
+    @Test
+    void testPosodobiOpravilo_Success() {
+        // Arrange
+        Opravilo obstojeceOpravilo = new Opravilo(1L, "Old Task", "Old Description", false, null, null, null);
+        Opravilo novoOpravilo = new Opravilo(1L, "Updated Task", "Updated Description", true, null, null, null);
+
+        when(opraviloRepo.findById(1L)).thenReturn(Optional.of(obstojeceOpravilo));
+        when(opraviloRepo.save(obstojeceOpravilo)).thenReturn(novoOpravilo);
+
+        // Act
+        ResponseEntity<Opravilo> result = opraviloController.posodobiOpravilo(1L, novoOpravilo);
+
+        // Assert
+        assertNotNull(result);
+        assertEquals("Updated Task", result.getBody().getAktivnost());
+        verify(opraviloRepo, times(1)).findById(1L);
+        verify(opraviloRepo, times(1)).save(obstojeceOpravilo);
+    }
+
+    //Preveri ali se opravilo pravilno označi kot opravljeno
+    @Test
+    void testOznaciKotOpravljeno_Success() {
+        // Arrange
+        Opravilo opravilo = new Opravilo(1L, "Task", "Description", false, null, null, null);
+        when(opraviloRepo.findById(1L)).thenReturn(Optional.of(opravilo));
+        when(opraviloRepo.save(any(Opravilo.class))).thenAnswer(invocation -> invocation.getArgument(0));
+
+        // Act
+        ResponseEntity<Opravilo> result = opraviloController.oznaciKotOpravljeno(1L);
+
+        // Assert
+        assertNotNull(result.getBody());
+        assertTrue(result.getBody().isOpravljeno(), "The task should be marked as completed.");
+        verify(opraviloRepo, times(1)).save(opravilo);
+    }
+
+    //Preveri ali se najde opravilo glede aktivnosti
+    @Test
+    void testIskanjeOpravila() {
+        // Arrange
+        List<Opravilo> opravila = new ArrayList<>();
+        opravila.add(new Opravilo(1L, "Task 1", "Description 1", false, null, null, null));
+        when(opraviloRepo.findByAktivnostContainingIgnoreCase("Task")).thenReturn(opravila);
+
+        // Act
+        List<Opravilo> result = opraviloController.iskanjeOpravila("Task");
+
+        // Assert
+        assertNotNull(result);
+        assertEquals(1, result.size());
+        verify(opraviloRepo, times(1)).findByAktivnostContainingIgnoreCase("Task");
+    }
+
+    //Preveri ali se vrne sporočilo
+    @Test
+    void testTestEndpoint() {
+        // Act
+        String result = opraviloController.testEndpoint();
+
+        // Assert
+        assertEquals("Controller is working!", result);
+    }
+
+    //Preveri ali vrne napako pri posiljanju ali ne
+    @Test
+    void testSms() {
+        // Act
+        String result = opraviloController.testSms();
+
+        // Assert
+        assertTrue(result.contains("Napaka pri pošiljanju SMS") || result.contains("SMS uspešno poslan"));
     }
 }
