@@ -10,7 +10,7 @@ Testiranje napak, kot so neveljavne zahteve ali manjkajoči podatki.
 
 #### Člani skupine
 - Filip Knez: Testiranje Opravil Controller, testiranje CORS konfiguracije, testiranje Opravilo entitete, testiranje Uporabnik entitete 
-- Gaj Korošec:
+- Gaj Korošec: UporabnikController
 - Gal Kovše:
 
 #### Analiza uspešnosti
