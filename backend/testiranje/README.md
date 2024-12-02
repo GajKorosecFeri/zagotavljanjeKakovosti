@@ -9,10 +9,10 @@ Preverjanje pravilnega delovanja API-jev.
 Testiranje napak, kot so neveljavne zahteve ali manjkajoči podatki.
 
 #### Člani skupine
-- Filip Knez: Testiranje Opravil Controller, testiranje CORS konfiguracije, testiranje Opravilo entitete 
+- Filip Knez: Testiranje Opravil Controller, testiranje CORS konfiguracije, testiranje Opravilo entitete, testiranje Uporabnik entitete 
 - Gaj Korošec:
 - Gal Kovše:
-- 
+
 #### Analiza uspešnosti
 Vsi testi so bili uspešno izvedeni.
 Odpravljene so bile manjše napake v povezavi z napačnimi API URL-ji.
@@ -21,7 +21,7 @@ Testi pokrivajo:
 - Pozitivne in negativne scenarije.
 - Preverjanje pravilnosti API-jev in obdelavo napak.
 - Validacijo podatkov in povezav med entitetam
-- 
+
 ### OpraviloControllerTest
 
 1. **Testi preverjajo naslednje funkcionalnosti**:
@@ -108,3 +108,42 @@ Testi pokrivajo:
    - Preverja pravilno implementacijo varnostnih nastavitev za CORS, ki so ključne za delovanje spletnih aplikacij z različnimi izvorami.
    - Zagotavlja, da endpointi omogočajo ustrezno komunikacijo s frontend aplikacijami, kot je React na `http://localhost:3000`.
 
+### UporabnikTest
+
+1. **Testi preverjajo naslednje funkcionalnosti**:
+    - **Preverjanje polj entitete `Uporabnik`**:
+        - Test `testUporabnikFields` preverja, ali se polja entitete `Uporabnik` pravilno nastavijo in vrnejo. To vključuje:
+            - Preverjanje ID-ja, imena, e-pošte, telefonske številke ter povezave z opravili.
+            - Validacija pravilnega delovanja getterjev in setterjev.
+        - Ta test zagotavlja, da so vse glavne lastnosti entitete `Uporabnik` pravilno implementirane.
+    - **Preverjanje povezave z entiteto `Opravilo`**:
+        - Test `testOpravilaAssociation` preverja, ali je povezava med entitetama `Uporabnik` in `Opravilo` pravilno vzpostavljena:
+            - Preverjanje, ali se opravila pravilno povežejo z uporabnikom.
+            - Validacija obojestranske povezave med uporabnikom in opravili.
+    - **Preverjanje funkcij, ki jih generira Lombok**:
+        - Test `testToStringAndLombokFeatures` preverja funkcionalnosti, ki jih samodejno generira knjižnica **Lombok**:
+            - `toString`: Zagotavlja, da metoda `toString` vključuje ključne informacije o uporabniku, kot so ime, e-pošta in povezana opravila.
+            - `equals`: Preveri, ali metoda `equals` pravilno primerja dve instanci.
+            - `hashCode`: Preveri, ali metoda `hashCode` generira veljaven in nenulti hash kode.
+
+2. **Pokritost**:
+    - Preverja vse ključne lastnosti in metode entitete `Uporabnik`.
+    - Preverja povezave med entiteto `Uporabnik` in povezanimi entitetami `Opravilo`.
+    - Preverja samodejno generirane funkcionalnosti knjižnice **Lombok**.
+    - Preverja delovanje z različnimi scenariji, kot so nastavljanje vrednosti, preverjanje enakosti in ustvarjanje hash kode.
+
+3. **Orodja in tehnike**:
+    - Testi uporabljajo **AssertJ** za preverjanje (asercije), ki omogoča berljivo in preprosto validacijo pogojev z uporabo metode `assertThat`.
+    - Testiranje je osredotočeno na pravilnost polj, obnašanje povezav in validacijo metod, ki jih generira **Lombok**.
+
+4. **Struktura testov**:
+    - **Test `testUporabnikFields`**:
+        - Ustvari instanco razreda `Uporabnik`.
+        - Nastavi vrednosti vseh polj in preveri njihovo pravilnost s pomočjo getterjev.
+        - Preveri povezavo z več opravili.
+    - **Test `testOpravilaAssociation`**:
+        - Preveri, ali je obojestranska povezava med entitetama `Uporabnik` in `Opravilo` pravilno vzpostavljena.
+        - Validira, da so opravila pravilno povezana z uporabnikom.
+    - **Test `testToStringAndLombokFeatures`**:
+        - Preveri metode `toString`, `equals` in `hashCode`, ki jih generira **Lombok**.
+        - Validira, da so vse funkcionalnosti v skladu s pričakovanji.
