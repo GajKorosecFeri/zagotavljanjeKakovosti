@@ -37,8 +37,8 @@ public class OpraviloControlerTest {
     void testPridobiVsaOpravila() {
         // Arrange
         List<Opravilo> opravila = new ArrayList<>();
-        opravila.add(new Opravilo(1L, "Task 1", "Description 1", false, null, null, null));
-        opravila.add(new Opravilo(2L, "Task 2", "Description 2", true, null, null, null));
+        opravila.add(new Opravilo(1L, "Task 1", "Description 1", false, null, null, null,null));
+        opravila.add(new Opravilo(2L, "Task 2", "Description 2", true, null, null, null,null));
 
         when(opraviloRepo.findAll()).thenReturn(opravila);
 
@@ -54,7 +54,7 @@ public class OpraviloControlerTest {
     @Test
     void testPridobiOpraviloPoId_Success() {
         // Arrange
-        Opravilo opravilo = new Opravilo(1L, "Task 1", "Description 1", false, null, null, null);
+        Opravilo opravilo = new Opravilo(1L, "Task 1", "Description 1", false, null, null, null,null);
         when(opraviloRepo.findById(1L)).thenReturn(Optional.of(opravilo));
 
         // Act
@@ -82,7 +82,7 @@ public class OpraviloControlerTest {
     @Test
     void testUstvariOpravilo() {
         // Arrange
-        Opravilo opravilo = new Opravilo(1L, "Task 1", "Description 1", false, null, null, null);
+        Opravilo opravilo = new Opravilo(1L, "Task 1", "Description 1", false, null, null, null,null);
         when(opraviloRepo.save(any(Opravilo.class))).thenReturn(opravilo);
 
         // Act
@@ -98,7 +98,7 @@ public class OpraviloControlerTest {
     @Test
     void testIzbrisiOpravilo_Success() {
         // Arrange
-        Opravilo opravilo = new Opravilo(1L, "Task 1", "Description 1", false, null, null, null);
+        Opravilo opravilo = new Opravilo(1L, "Task 1", "Description 1", false, null, null, null,null);
         when(opraviloRepo.findById(1L)).thenReturn(Optional.of(opravilo));
 
         // Act
@@ -126,8 +126,8 @@ public class OpraviloControlerTest {
     @Test
     void testPosodobiOpravilo_Success() {
         // Arrange
-        Opravilo obstojeceOpravilo = new Opravilo(1L, "Old Task", "Old Description", false, null, null, null);
-        Opravilo novoOpravilo = new Opravilo(1L, "Updated Task", "Updated Description", true, null, null, null);
+        Opravilo obstojeceOpravilo = new Opravilo(1L, "Old Task", "Old Description", false, null, null, null,null);
+        Opravilo novoOpravilo = new Opravilo(1L, "Updated Task", "Updated Description", true, null, null, null,null);
 
         when(opraviloRepo.findById(1L)).thenReturn(Optional.of(obstojeceOpravilo));
         when(opraviloRepo.save(obstojeceOpravilo)).thenReturn(novoOpravilo);
@@ -146,7 +146,7 @@ public class OpraviloControlerTest {
     @Test
     void testOznaciKotOpravljeno_Success() {
         // Arrange
-        Opravilo opravilo = new Opravilo(1L, "Task", "Description", false, null, null, null);
+        Opravilo opravilo = new Opravilo(1L, "Task", "Description", false, null, null, null,null);
         when(opraviloRepo.findById(1L)).thenReturn(Optional.of(opravilo));
         when(opraviloRepo.save(any(Opravilo.class))).thenAnswer(invocation -> invocation.getArgument(0));
 
@@ -164,7 +164,7 @@ public class OpraviloControlerTest {
     void testIskanjeOpravila() {
         // Arrange
         List<Opravilo> opravila = new ArrayList<>();
-        opravila.add(new Opravilo(1L, "Task 1", "Description 1", false, null, null, null));
+        opravila.add(new Opravilo(1L, "Task 1", "Description 1", false, null, null, null,null));
         when(opraviloRepo.findByAktivnostContainingIgnoreCase("Task")).thenReturn(opravila);
 
         // Act
@@ -188,7 +188,7 @@ public class OpraviloControlerTest {
 
     //Preveri ali vrne napako pri posiljanju ali ne
     @Test
-    void testSms() {
+    void testSms() {//naredi da pade...
         // Act
         String result = opraviloController.testSms();
 

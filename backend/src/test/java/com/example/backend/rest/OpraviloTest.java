@@ -40,7 +40,7 @@ public class OpraviloTest {
         // Create a test task using the all-args constructor
         Uporabnik uporabnik = new Uporabnik(1L, "Test User", "test@example.com", "123456789", null);
         Opravilo opravilo = new Opravilo(1L, "Test Activity", "This is a test description.",
-                true, LocalDateTime.of(2024, 12, 1, 10, 30), "email", uporabnik);
+                true, LocalDateTime.of(2024, 12, 1, 10, 30), "email", uporabnik,null);
 
         // Verify Lombok-generated methods
         assertThat(opravilo.toString()).contains("Test Activity", "Test User", "email");

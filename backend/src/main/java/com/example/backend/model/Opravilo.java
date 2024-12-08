@@ -5,6 +5,8 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name="opravilo")
@@ -31,4 +33,7 @@ public class Opravilo {
     @JsonBackReference
     private Uporabnik uporabnik; // Povezava do entitete Uporabnik
 
+    @OneToMany(mappedBy = "opravilo", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Priloga> priloge = new ArrayList<>(); // Seznam prilog
+    
 }

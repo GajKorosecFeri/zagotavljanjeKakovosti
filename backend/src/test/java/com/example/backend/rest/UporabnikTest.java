@@ -15,8 +15,8 @@ public class UporabnikTest {
     void testUporabnikFields() {
         // Create a list of tasks (opravila)
         List<Opravilo> opravila = new ArrayList<>();
-        opravila.add(new Opravilo(1L, "Task 1", "Description 1", false, null, "email", null));
-        opravila.add(new Opravilo(2L, "Task 2", "Description 2", true, null, "sms", null));
+        opravila.add(new Opravilo(1L, "Task 1", "Description 1", false, null, "email", null,null));
+        opravila.add(new Opravilo(2L, "Task 2", "Description 2", true, null, "sms", null,null));
 
         // Create a user (uporabnik)
         Uporabnik uporabnik = new Uporabnik();
@@ -40,8 +40,8 @@ public class UporabnikTest {
         Uporabnik uporabnik = new Uporabnik(1L, "Test User", "test@example.com", "123456789", new ArrayList<>());
 
         // Create and associate tasks (opravila)
-        Opravilo opravilo1 = new Opravilo(1L, "Task 1", "Description 1", false, null, "email", uporabnik);
-        Opravilo opravilo2 = new Opravilo(2L, "Task 2", "Description 2", true, null, "sms", uporabnik);
+        Opravilo opravilo1 = new Opravilo(1L, "Task 1", "Description 1", false, null, "email", uporabnik,null);
+        Opravilo opravilo2 = new Opravilo(2L, "Task 2", "Description 2", true, null, "sms", uporabnik,null);
 
         uporabnik.getOpravila().add(opravilo1);
         uporabnik.getOpravila().add(opravilo2);
@@ -56,7 +56,7 @@ public class UporabnikTest {
     void testToStringAndLombokFeatures() {
         // Create a user with the all-args constructor
         List<Opravilo> opravila = new ArrayList<>();
-        opravila.add(new Opravilo(1L, "Task 1", "Description 1", false, null, "email", null));
+        opravila.add(new Opravilo(1L, "Task 1", "Description 1", false, null, "email", null,null));
         Uporabnik uporabnik = new Uporabnik(1L, "Test User", "test@example.com", "123456789", opravila);
 
         // Verify Lombok-generated methods
