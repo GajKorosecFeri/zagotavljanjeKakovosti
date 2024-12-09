@@ -3,6 +3,8 @@ import { pridobiVsaOpravila, ustvariOpravilo, izbrisiOpravilo, posodobiOpravilo,
 import '../Opravila.css';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { dodajPrilogoNaStreznik } from "../services/OpravilaService";
+
 const SeznamOpravil = () => {
     const [opravila, nastaviOpravila] = useState([]); // Shranjuje vsa opravila
     const [novoOpravilo, nastaviNovoOpravilo] = useState({ aktivnost: '', opis: '', opravljeno: '',datumCas: null, reminderMethod: 'none' }); // Stanje za novo opravilo
@@ -89,6 +91,28 @@ const SeznamOpravil = () => {
         const { name, value } = e.target;
         nastaviNovoOpravilo({ ...novoOpravilo, [name]: value });
     };
+
+    const dodajPrilogo = (opraviloId) => {
+        const fileInput = document.createElement("input");
+        fileInput.type = "file";
+        fileInput.accept = "*/*"; // Dovolite vse vrste datotek, po potrebi prilagodite
+        fileInput.onchange = async (event) => {
+            const file = event.target.files[0];
+            if (file) {
+                const formData = new FormData();
+                formData.append("priloga", file);
+                try {
+                    await dodajPrilogoNaStreznik(opraviloId, formData);
+                    alert("Priloga uspešno naložena!");
+                } catch (error) {
+                    console.error("Napaka pri nalaganju priloge:", error);
+                    alert("Napaka pri nalaganju priloge.");
+                }
+            }
+        };
+        fileInput.click();
+    };
+
 
     return (
         <div className="todo-container">
@@ -196,6 +220,7 @@ const SeznamOpravil = () => {
                                 )}
                                 <button onClick={() => rocnUredi(opravilo)} className="gumb-uredi">Uredi</button>
                                 <button onClick={() => rocnObrisi(opravilo.id)} className="gumb-izbrisi">Izbriši</button>
+                                <button onClick={() => dodajPrilogo(opravilo.id)}>Dodaj prilogo</button>
                             </div>
                         </li>
                     ))

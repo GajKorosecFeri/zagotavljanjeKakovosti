@@ -90,3 +90,16 @@ export const isciOpravila = async (query) => {
         throw napaka;
     }
 };
+export const dodajPrilogoNaStreznik = async (opraviloId, formData) => {
+    try {
+        const response = await apiOdjemalec.post(`/${opraviloId}/priloge`, formData, {
+            headers: {
+                "Content-Type": "multipart/form-data",
+            },
+        });
+        return response.data;
+    } catch (error) {
+        console.error("Napaka pri nalaganju priloge:", error);
+        throw error;
+    }
+};
