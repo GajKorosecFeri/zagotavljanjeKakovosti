@@ -130,7 +130,7 @@ public class OpraviloController {
             Opravilo opravilo = opraviloRepo.findById(id)
                     .orElseThrow(() -> new RuntimeException("Opravilo ne obstaja"));
 
-            // Shranite datoteko na strežnik (ali v bazo, če uporabljate Blob)
+            // Shranite datoteko na strežnik oz v bazo
             Priloga priloga = new Priloga();
             priloga.setIme(file.getOriginalFilename());
             priloga.setTip(file.getContentType());
