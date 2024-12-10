@@ -1,7 +1,7 @@
 # Scrum Poročilo
 
 ## Uporabniška zgodba: Dodajanje prilog k nalogam
-
+### Sprint naloge:
 ### N1. Priprava baze podatkov za shranjevanje prilog
 - **Naloga**: Ustvarimo entiteto `Priloga` z ustreznimi atributi (npr. ime datoteke, tip datoteke, povezava na nalogo, URL).
 - **Podrobnosti**:
@@ -34,6 +34,14 @@
 - **Done**: Naloge so dokončane in testirane.
 - **Doing**: Naloge so trenutno v razvoju.
 - **Todo**: Naloge čakajo na začetek izvajanja.
+
+### Retrospektiva:
+- Kaj je šlo dobro:
+  - Dobra koordinacija pri razdeljevanju nalog.
+  - Naloge so bile jasno definirane in merljive.
+- Kaj bi lahko izboljšali:
+  - Hitrejše premikanje nalog med fazami.
+  - Večja posodobitev SCRUM poročila, za lažji vidik napredka.
 
 ## Opombe
 - Sledili smo Scrum metodologiji z dnevnimi sestanki in načrtovanjem sprintov.
