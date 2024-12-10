@@ -1,5 +1,11 @@
 # Scrum Poročilo
+## Sprint: Dodajanje prilog
 
+### Sprint cilj:
+1. Uporabniku omogočiti nalaganje in upravljanje prilog pri nalogah.
+### Planning poker metoda
+Za oceno smo uporabili enote story points (SP).
+S to metodo vsak član ekipe predlaga svojo oceno zahtevnosti naloge, nato pa dosežemo soglasje.
 ## Uporabniška zgodba: Dodajanje prilog k nalogam
 ### Sprint naloge:
 ### N1. Priprava baze podatkov za shranjevanje prilog
