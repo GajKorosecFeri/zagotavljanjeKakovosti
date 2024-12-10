@@ -120,30 +120,6 @@ public class OpraviloController {
         }
     }
     //priloge
-    @PostMapping("/{id}/priloge")
-    public ResponseEntity<String> dodajPrilogo(
 
-            @PathVariable Long id,
-            @RequestParam("priloga") MultipartFile file) {
-        try {
-            // Preverite ali opravilo obstaja
-            Opravilo opravilo = opraviloRepo.findById(id)
-                    .orElseThrow(() -> new RuntimeException("Opravilo ne obstaja"));
-
-            // Shranite datoteko na strežnik oz v bazo
-            Priloga priloga = new Priloga();
-            priloga.setIme(file.getOriginalFilename());
-            priloga.setTip(file.getContentType());
-            priloga.setPovezava("pot_do_datoteke/" + file.getOriginalFilename()); // Prilagodite shranjevanje
-            priloga.setOpravilo(opravilo);
-
-            prilogaRepo.save(priloga);
-
-            return ResponseEntity.ok("Priloga uspešno dodana.");
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Napaka pri nalaganju priloge: " + e.getMessage());
-        }
-    }
 
 }
