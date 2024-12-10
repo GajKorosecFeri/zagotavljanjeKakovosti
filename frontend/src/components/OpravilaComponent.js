@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { pridobiVsaOpravila, ustvariOpravilo, izbrisiOpravilo, posodobiOpravilo, oznaciKotOpravljeno, isciOpravila } from "../services/OpravilaService";
+import { pridobiVsaOpravila, ustvariOpravilo, izbrisiOpravilo, posodobiOpravilo, oznaciKotOpravljeno, isciOpravila, pridobiPrilogeZaOpravilo  } from "../services/OpravilaService";
 import '../Opravila.css';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -11,6 +11,8 @@ const SeznamOpravil = () => {
     const [urediOpravilo, nastaviUrediOpravilo] = useState(null); // Stanje za urejanje obstoječih opravil
     const [iskalniNiz, nastaviIskalniNiz] = useState('');// za iskanje
     const [uporabnikId, nastaviUporabnikId] = useState(null); // Default user's ID
+    const [priloge, nastaviPriloge] = useState({});
+    const [prikazanePriloge, nastaviPrikazanePriloge] = useState([]);
 
     useEffect(() => {
         // Automatically set defaultUser
@@ -92,7 +94,7 @@ const SeznamOpravil = () => {
         nastaviNovoOpravilo({ ...novoOpravilo, [name]: value });
     };
 
-    const dodajPrilogo = (opraviloId) => {
+    const dodajPrilogo = async (opraviloId) => {
         const fileInput = document.createElement("input");
         fileInput.type = "file";
         fileInput.accept = "*/*"; // Dovolite vse vrste datotek, po potrebi prilagodite
@@ -104,6 +106,8 @@ const SeznamOpravil = () => {
                 try {
                     await dodajPrilogoNaStreznik(opraviloId, formData);
                     alert("Priloga uspešno naložena!");
+                    // Ponovno naloži opravila, da osvežimo seznam z novo prilogo
+                    naloziOpravila(uporabnikId);
                 } catch (error) {
                     console.error("Napaka pri nalaganju priloge:", error);
                     alert("Napaka pri nalaganju priloge.");
@@ -113,6 +117,27 @@ const SeznamOpravil = () => {
         fileInput.click();
     };
 
+    const naloziPrilogeZaOpravilo = async (opraviloId) => {
+        try {
+            const priloge = await pridobiPrilogeZaOpravilo(opraviloId);
+            nastaviPriloge((prejsnjePriloge) => ({
+                ...prejsnjePriloge,
+                [opraviloId]: priloge,
+            }));
+        } catch (napaka) {
+            console.error(`Napaka pri nalaganju prilog za opravilo ${opraviloId}:`, napaka);
+        }
+    };
+
+    const prikaziPriloge = (id) => {
+        if (!prikazanePriloge.includes(id)) {
+            nastaviPrikazanePriloge([...prikazanePriloge, id]);
+        }
+    };
+
+    const skrijPriloge = (id) => {
+        nastaviPrikazanePriloge(prikazanePriloge.filter((prilogaId) => prilogaId !== id));
+    };
 
     return (
         <div className="todo-container">
@@ -221,6 +246,22 @@ const SeznamOpravil = () => {
                                 <button onClick={() => rocnUredi(opravilo)} className="gumb-uredi">Uredi</button>
                                 <button onClick={() => rocnObrisi(opravilo.id)} className="gumb-izbrisi">Izbriši</button>
                                 <button onClick={() => dodajPrilogo(opravilo.id)}>Dodaj prilogo</button>
+                                {prikazanePriloge.includes(opravilo.id) ? (
+                                    <>
+                                        <ul>
+                                            {opravilo.priloge.map((priloga) => (
+                                                <li key={priloga.id}>
+                                                    <a href={priloga.povezava} target="_blank" rel="noopener noreferrer">
+                                                        {priloga.ime}
+                                                    </a>
+                                                </li>
+                                            ))}
+                                        </ul>
+                                        <button onClick={() => skrijPriloge(opravilo.id)}>Skrij priloge</button>
+                                    </>
+                                ) : (
+                                    <button onClick={() => prikaziPriloge(opravilo.id)}>Prikaži priloge</button>
+                                )}
                             </div>
                         </li>
                     ))

@@ -103,3 +103,13 @@ export const dodajPrilogoNaStreznik = async (opraviloId, formData) => {
         throw error;
     }
 };
+// Pridobi priloge posameznega opravila
+export const pridobiPrilogeZaOpravilo = async (opraviloId) => {
+    try {
+        const response = await apiOdjemalec.get(`/${opraviloId}/priloge`);
+        return response.data;
+    } catch (error) {
+        console.error(`Napaka pri pridobivanju prilog za opravilo ${opraviloId}:`, error);
+        throw error;
+    }
+};

@@ -2,6 +2,7 @@ package com.example.backend.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -28,14 +29,14 @@ public class Opravilo {
     private String reminderMethod;
 
 
-
     @ManyToOne
     @JoinColumn(name = "uporabnik_id", nullable = false)
     @JsonBackReference
     private Uporabnik uporabnik; // Povezava do entitete Uporabnik
 
     @OneToMany(mappedBy = "opravilo", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonIgnore
-    private List<Priloga> priloge = new ArrayList<>(); // Seznam prilog
+    // @JsonIgnore
+    @JsonManagedReference
+    private List<Priloga> priloge; // Seznam prilog
     
 }

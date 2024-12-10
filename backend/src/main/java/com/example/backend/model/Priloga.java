@@ -1,5 +1,6 @@
 package com.example.backend.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -19,6 +20,7 @@ public class Priloga {
     private String povezava; // URL ali pot do datoteke
 
     @ManyToOne
-    @JoinColumn(name = "opravilo_id", nullable = false)
+    @JoinColumn(name = "opravilo_id")
+    @JsonBackReference
     private Opravilo opravilo; // Povezava na pripadajoče opravilo
 }
