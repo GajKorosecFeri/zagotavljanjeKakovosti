@@ -5,8 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="75d7928b-2576-40e0-bea7-d4ff98b6b7c0" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/implementacija/porocilo_scrum.md" beforeDir="false" afterPath="$PROJECT_DIR$/implementacija/porocilo_scrum.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/backend/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/backend/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/implementacija/porocilo_scrum.md" beforeDir="false" afterPath="$PROJECT_DIR$/backend/implementacija/porocilo_scrum.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -63,6 +66,7 @@
 }</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Filip\OneDrive\Namizje\RIS\RISProjekt\backend" />
       <recent name="C:\Users\Filip\OneDrive\Namizje\RIS\RISProjekt" />
     </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
@@ -117,7 +121,8 @@
       <workItem from="1730144369075" duration="26000" />
       <workItem from="1730147764764" duration="10534000" />
       <workItem from="1731862122339" duration="49518000" />
-      <workItem from="1733653031240" duration="9882000" />
+      <workItem from="1733653031240" duration="13488000" />
+      <workItem from="1734031885278" duration="1295000" />
     </task>
     <servers />
   </component>
