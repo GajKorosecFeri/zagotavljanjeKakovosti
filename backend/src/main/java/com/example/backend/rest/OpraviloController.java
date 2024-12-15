@@ -1,4 +1,6 @@
 package com.example.backend.rest;
+import com.example.backend.scheduler.GoogleEventRequest;
+import com.example.backend.service.GoogleCalendarService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,6 +23,7 @@ import com.twilio.rest.api.v2010.account.Message;
 
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/opravila")
@@ -30,8 +33,6 @@ public class OpraviloController {
     private OpraviloRepo opraviloRepo;
     @Autowired
     private PrilogaRepo prilogaRepo;
-
-
     @GetMapping("/test")
     public String testEndpoint() {
         return "Controller is working!";

@@ -113,3 +113,28 @@ export const pridobiPrilogeZaOpravilo = async (opraviloId) => {
         throw error;
     }
 };
+export const syncTaskToGoogleCalendar = async (task) => {
+    try {
+        // Preverjanje vhodnih podatkov
+        console.log("Sinhronizacija z Google Calendar. Podatki o opravilu:", task);
+
+        const eventData = {
+            title: task.aktivnost || "Brez naslova",
+            description: task.opis || "Ni opisa",
+            startTime: new Date(task.datumCas).toISOString(), // Oblikovanje začetnega časa
+            endTime: new Date(new Date(task.datumCas).getTime() + 3600000).toISOString(), // Dodaj 1 uro
+        };
+
+        console.log("Podatki za Google Calendar (eventData):", eventData);
+
+        const response = await axios.post(
+            "http://localhost:8080/api/google-calendar/add-task",
+            eventData
+        );
+        console.log("Odgovor od strežnika:", response.data);
+        return response.data;
+    } catch (error) {
+        console.error("Napaka pri sinhronizaciji z Google Calendar:", error.message);
+        throw error;
+    }
+};
