@@ -7,7 +7,6 @@
     <list default="true" id="75d7928b-2576-40e0-bea7-d4ff98b6b7c0" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.github/workflows/ci-cd.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/ci-cd.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/backend/pom.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -125,7 +124,7 @@
       <workItem from="1734263973230" duration="23551000" />
       <workItem from="1734370281787" duration="2455000" />
       <workItem from="1736025378361" duration="285000" />
-      <workItem from="1736179715241" duration="4078000" />
+      <workItem from="1736179715241" duration="4486000" />
     </task>
     <servers />
   </component>
