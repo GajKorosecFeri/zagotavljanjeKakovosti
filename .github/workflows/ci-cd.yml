@@ -22,10 +22,20 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
+      - name: Ensure mvnw is executable
+        run: |
+          git update-index --chmod=+x backend/mvnw
+
+      - name: Convert line endings for mvnw
+        run: |
+          sudo apt-get install -y dos2unix
+          dos2unix backend/mvnw
+
       - name: Build backend
         run: |
           cd backend
           ./mvnw clean install -DskipTests
+  
 
   # Job 2: Build frontend
   build-frontend:
