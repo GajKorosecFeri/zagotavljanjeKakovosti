@@ -3,7 +3,7 @@ name: CI/CD Pipeline
 on:
   push:
     branches:
-      - main # Prilagodite, če uporabljate drugačno ime veje
+      - main
   pull_request:
     branches:
       - main
