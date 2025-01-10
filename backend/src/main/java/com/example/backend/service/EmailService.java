@@ -18,15 +18,18 @@ public class EmailService {
     @Autowired
     private JavaMailSender javaMailSender;
 
+    private static final String DEFAULT_RECIPIENT = "gajkorosec58@gmail.com";
+
+
     @Value("${spring.mail.username}")
     private String emailSender;
 
     public void sendEmail(EmailDetails emailDetails){
         try {
-            log.debug("Preparing to send email to: {}", emailDetails.getRecipient());
+            log.debug("Preparing to send email to: {}", DEFAULT_RECIPIENT);
             SimpleMailMessage mailMsg = new SimpleMailMessage();
-            mailMsg.setFrom("gajkorosec58@gmail.com");
-            mailMsg.setTo(emailDetails.getRecipient());
+            mailMsg.setFrom(emailSender);
+            mailMsg.setTo(DEFAULT_RECIPIENT);
             mailMsg.setText(emailDetails.getMessageBody());
             mailMsg.setSubject(emailDetails.getSubject());
 

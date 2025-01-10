@@ -5,6 +5,8 @@ public class EmailDetails {
     private String recipient;
     private String subject;
     private String messageBody;
+
+
     // Getters and Setters
     public String getRecipient() {
         return recipient;

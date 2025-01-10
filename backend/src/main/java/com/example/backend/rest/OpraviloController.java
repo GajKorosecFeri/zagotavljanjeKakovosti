@@ -1,4 +1,5 @@
 package com.example.backend.rest;
+import com.example.backend.model.EmailDetails;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,6 +20,8 @@ import org.springframework.web.bind.annotation.*;
 import com.twilio.Twilio;
 import com.twilio.rest.api.v2010.account.Message;
 
+import com.example.backend.service.EmailService;
+
 
 import java.util.List;
 
@@ -31,6 +34,9 @@ public class OpraviloController {
     @Autowired
     private PrilogaRepo prilogaRepo;
 
+    @Autowired
+    private EmailService emailService;
+
 
     @GetMapping("/test")
     public String testEndpoint() {
@@ -40,6 +46,15 @@ public class OpraviloController {
     //Create - dodajanje novega uporabnika
     @PostMapping
     public Opravilo ustvariOpravilo(@RequestBody Opravilo opravilo){
+
+        EmailDetails emailDetails = new EmailDetails();
+        emailDetails.setSubject("New Opravilo Created");
+        emailDetails.setMessageBody("A new Opravilo has been created with ID: " + opravilo.getId() + ".\n\nDetails:\n" +
+                "Aktivnost: " + opravilo.getAktivnost() + "\n" +
+                "Opis: " + opravilo.getOpis());
+        emailService.sendEmail(emailDetails);
+
+
         return opraviloRepo.save(opravilo);
     }
 
