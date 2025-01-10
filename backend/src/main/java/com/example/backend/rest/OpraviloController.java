@@ -1,5 +1,9 @@
 package com.example.backend.rest;
+
 import com.example.backend.model.EmailDetails;
+import com.example.backend.scheduler.GoogleEventRequest;
+import com.example.backend.service.GoogleCalendarService;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -24,6 +28,7 @@ import com.example.backend.service.EmailService;
 
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/opravila")
@@ -36,6 +41,7 @@ public class OpraviloController {
 
     @Autowired
     private EmailService emailService;
+
 
 
     @GetMapping("/test")

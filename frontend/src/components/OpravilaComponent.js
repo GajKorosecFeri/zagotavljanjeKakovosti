@@ -1,5 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { pridobiVsaOpravila, ustvariOpravilo, izbrisiOpravilo, posodobiOpravilo, oznaciKotOpravljeno, isciOpravila, pridobiPrilogeZaOpravilo  } from "../services/OpravilaService";
+import {
+    pridobiVsaOpravila,
+    ustvariOpravilo,
+    izbrisiOpravilo,
+    posodobiOpravilo,
+    oznaciKotOpravljeno,
+    isciOpravila,
+    pridobiPrilogeZaOpravilo,
+    syncTaskToGoogleCalendar
+} from "../services/OpravilaService";
 import '../Opravila.css';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -13,6 +22,7 @@ const SeznamOpravil = () => {
     const [uporabnikId, nastaviUporabnikId] = useState(null); // Default user's ID
     const [priloge, nastaviPriloge] = useState({});
     const [prikazanePriloge, nastaviPrikazanePriloge] = useState([]);
+    const [syncingId, setSyncingId] = useState(null);
 
     useEffect(() => {
         // Automatically set defaultUser
@@ -35,7 +45,7 @@ const SeznamOpravil = () => {
     };
 
     const rocnObrisi = (id) => {
-        izbrisiOpravilo(id).then(() => {
+         izbrisiOpravilo(id).then(() => {
             naloziOpravila(uporabnikId); // Ponovno naloži opravila po brisanju
         }).catch((napaka) => {
             console.error("Napaka pri brisanju opravila", napaka);
@@ -43,12 +53,16 @@ const SeznamOpravil = () => {
     };
 
     const rocnUstvari = () => {
-        ustvariOpravilo({ ...novoOpravilo, uporabnik: { id: uporabnikId } }).then(() => {
-            naloziOpravila(uporabnikId); // Ponovno naloži opravila po ustvarjanju
-            nastaviNovoOpravilo({ aktivnost: '', opis: '', opravljeno: '',datumCas: null, reminderMethod: 'none' }); // Ponastavi obrazec
-        }).catch((napaka) => {
-            console.error("Napaka pri ustvarjanju opravila", napaka);
-        });
+        ustvariOpravilo({ ...novoOpravilo, uporabnik: { id: uporabnikId } })
+            .then((ustvarjenoOpravilo) => {
+                alert("Opravilo uspešno ustvarjeno!");
+                naloziOpravila(uporabnikId); // Refresh tasks
+                // Reset form
+                nastaviNovoOpravilo({ aktivnost: '', opis: '', opravljeno: '', datumCas: null, reminderMethod: 'none' });
+            })
+            .catch((napaka) => {
+                console.error("Napaka pri ustvarjanju opravila:", napaka);
+            });
     };
 
     const rocnUredi = (opravilo) => {
@@ -59,17 +73,22 @@ const SeznamOpravil = () => {
             opravljeno: opravilo.opravljeno,
             datumCas: new Date(opravilo.datumCas),
             reminderMethod: opravilo.reminderMethod || 'none'
+
         }); // Predizpolni obrazec
     };
 
     const rocnPosodobi = () => {
-        posodobiOpravilo(urediOpravilo.id, { ...novoOpravilo, uporabnik: { id: uporabnikId } }).then(() => {
-            naloziOpravila(uporabnikId); // Ponovno naloži opravila po posodobitvi
-            nastaviNovoOpravilo({ aktivnost: '', opis: '', opravljeno: '', datumCas: null, reminderMethod: 'none'  }); // Ponastavi obrazec
-            nastaviUrediOpravilo(null); // Počisti stanje urejanja
-        }).catch((napaka) => {
-            console.error("Napaka pri posodabljanju opravila", napaka);
-        });
+        posodobiOpravilo(urediOpravilo.id, { ...novoOpravilo, uporabnik: { id: uporabnikId } })
+            .then((posodobljenoOpravilo) => {
+                alert("Opravilo uspešno posodobljeno!");
+                naloziOpravila(uporabnikId); // Refresh tasks
+                // Reset form
+                nastaviNovoOpravilo({ aktivnost: '', opis: '', opravljeno: '', datumCas: null, reminderMethod: 'none' });
+                nastaviUrediOpravilo(null); // Clear edit state
+            })
+            .catch((napaka) => {
+                console.error("Napaka pri posodabljanju opravila:", napaka);
+            });
     };
 
     //Oznaci kot opravljeno
@@ -130,6 +149,11 @@ const SeznamOpravil = () => {
     };
 
     const prikaziPriloge = (id) => {
+        // Check if attachments are already loaded
+        if (!priloge[id]) {
+            naloziPrilogeZaOpravilo(id);
+        }
+        // Toggle visibility
         if (!prikazanePriloge.includes(id)) {
             nastaviPrikazanePriloge([...prikazanePriloge, id]);
         }
@@ -137,6 +161,26 @@ const SeznamOpravil = () => {
 
     const skrijPriloge = (id) => {
         nastaviPrikazanePriloge(prikazanePriloge.filter((prilogaId) => prilogaId !== id));
+    };
+
+
+    const sinhronizirajZGCal = async (opravilo) => {
+        setSyncingId(opravilo.id);
+        try {
+            // Preverjanje, ali obstajajo ključni podatki
+            if (!opravilo.aktivnost || !opravilo.datumCas) {
+                alert("Manjkajo ključni podatki: naslov ali datum za Google Calendar.");
+                return;
+            }
+
+            await syncTaskToGoogleCalendar(opravilo);
+            alert("Opravilo uspešno dodano v Google Calendar!");
+        } catch (error) {
+            console.error("Napaka pri dodajanju v Google Calendar:", error.message);
+            alert("Napaka pri dodajanju v Google Calendar. Preveri podatke.");
+        } finally {
+            setSyncingId(null);
+        }
     };
 
     return (
@@ -246,16 +290,28 @@ const SeznamOpravil = () => {
                                 <button onClick={() => rocnUredi(opravilo)} className="gumb-uredi">Uredi</button>
                                 <button onClick={() => rocnObrisi(opravilo.id)} className="gumb-izbrisi">Izbriši</button>
                                 <button onClick={() => dodajPrilogo(opravilo.id)}>Dodaj prilogo</button>
+                                <button
+                                    onClick={() => sinhronizirajZGCal(opravilo)}
+                                    disabled={syncingId === opravilo.id}
+                                >
+                                    {syncingId === opravilo.id
+                                        ? "Dodajanje..."
+                                        : "Dodaj v Google Calendar"}
+                                </button>
                                 {prikazanePriloge.includes(opravilo.id) ? (
                                     <>
                                         <ul>
-                                            {opravilo.priloge.map((priloga) => (
-                                                <li key={priloga.id}>
-                                                    <a href={priloga.povezava} target="_blank" rel="noopener noreferrer">
-                                                        {priloga.ime}
-                                                    </a>
-                                                </li>
-                                            ))}
+                                            {priloge[opravilo.id] && priloge[opravilo.id].length > 0 ? (
+                                                priloge[opravilo.id].map((priloga) => (
+                                                    <li key={priloga.id}>
+                                                        <a href={priloga.povezava} target="_blank" rel="noopener noreferrer">
+                                                            {priloga.ime}
+                                                        </a>
+                                                    </li>
+                                                ))
+                                            ) : (
+                                                <li>Ni prilog za to opravilo.</li>
+                                            )}
                                         </ul>
                                         <button onClick={() => skrijPriloge(opravilo.id)}>Skrij priloge</button>
                                     </>
