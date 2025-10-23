@@ -71,7 +71,7 @@ Projekt je razdeljen na dva glavna direktorija:
     - Framework: React (različica 17 ali novejša)
     - Package manager: npm
 
-## Vizija projekta
+## Vizija projeka
 
 TODO aplikacija je zasnovana za uporabnike, ki želijo enostavno in učinkovito upravljati svoje naloge in opravila. Namen aplikacije je izboljšati produktivnost uporabnikov, saj jim omogoča pregled nad nalogami, lažjo organizacijo in sledenje napredku. Cilj je ponuditi uporabniku prijazno rešitev za organizacijo vsakodnevnih opravil, ki je dostopna kjerkoli in kadarkoli. Aplikacija je primerna za posameznike, ekipe ali podjetja, ki potrebujejo boljšo organizacijo delovnih procesov in želijo optimizirati svojo učinkovitost.
 
@@ -111,5 +111,7 @@ Spodaj je prikazan diagram primerov uporabe za TODO aplikacijo, ki ponazarja gla
 **Podrobni opisi primerov uporabe po podanem obrazcu se nahajajo v :**:
 
 [Podrobni opisi primerov uporabe ](PodrobenOpisPrimerovUporabe.docx)
+
+test
 
 
