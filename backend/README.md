@@ -113,3 +113,6 @@ Odvisnosti so definirane v pom.xml. Če je potrebno, posodobite odvisnosti z uka
 ```bash
 mvn clean install
 ```
+
+
+Test
