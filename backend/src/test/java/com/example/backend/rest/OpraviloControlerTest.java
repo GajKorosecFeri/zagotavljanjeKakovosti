@@ -3,6 +3,7 @@ package com.example.backend.rest;
 import com.example.backend.rest.OpraviloController;
 import com.example.backend.model.Opravilo;
 import com.example.backend.repo.OpraviloRepo;
+import com.example.backend.service.EmailService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -23,6 +24,9 @@ import static org.mockito.Mockito.*;
 public class OpraviloControlerTest {
     @Mock
     private OpraviloRepo opraviloRepo;
+
+    @Mock
+    private EmailService emailService;
 
     @InjectMocks
     private OpraviloController opraviloController;
