@@ -1,3 +1,5 @@
+/*
+
 package com.example.backend.service;
 
 import com.google.api.client.googleapis.auth.oauth2.GoogleCredential;
@@ -32,3 +34,4 @@ public class GoogleOAuthConfig {
         ).setApplicationName(APPLICATION_NAME).build();
     }
 }
+*/

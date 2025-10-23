@@ -1,3 +1,5 @@
+/*
+
 package com.example.backend.service;
 
 import com.example.backend.scheduler.GoogleEventRequest;
@@ -40,4 +42,6 @@ public class GoogleCalendarService {
                 .execute();
     }
 }
+
+*/
 

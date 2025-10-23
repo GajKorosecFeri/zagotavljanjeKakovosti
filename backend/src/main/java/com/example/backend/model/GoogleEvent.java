@@ -1,3 +1,5 @@
+/*
+
 package com.example.backend.model;
 
 import jakarta.persistence.*;
@@ -18,3 +20,4 @@ public class GoogleEvent {
     public GoogleEvent() {}
 
 }
+*/

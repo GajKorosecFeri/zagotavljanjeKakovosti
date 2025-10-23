@@ -1,6 +1,7 @@
 package com.example.backend.scheduler;
 
 import lombok.Data;
+/*
 
 @Data
 public class GoogleEventRequest {
@@ -11,3 +12,4 @@ public class GoogleEventRequest {
 
 
 }
+*/

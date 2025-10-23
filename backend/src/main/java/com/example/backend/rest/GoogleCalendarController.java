@@ -1,3 +1,5 @@
+/*
+
 package com.example.backend.rest;
 
 import com.example.backend.scheduler.GoogleEventRequest;
@@ -32,3 +34,4 @@ public class GoogleCalendarController {
         }
     }
 }
+*/
